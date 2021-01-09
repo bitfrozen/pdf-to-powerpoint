@@ -16,4 +16,11 @@ Will produce `example.pptx` in the same folder.
 
 ## Dependencies
 
+```
+pip install Pillow
+pip install pdf2image
+pip install docx2pdf
+pip install python-pptx
+```
+
 In addition to the python packages in requirements.txt, `poppler` is also required in order for this script to work. On Mac OS you can install this with `brew install poppler`.
