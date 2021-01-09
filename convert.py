@@ -2,21 +2,32 @@ import os, sys
 
 from PIL import Image
 from pdf2image import convert_from_path
+from docx2pdf import convert
 from pptx import Presentation
 from pptx.util import Inches
 from io import BytesIO
 
-pdf_file = sys.argv[1]
+file_to_convert = sys.argv[1]
+
 print()
-print("Converting file: " + pdf_file)
+print("Converting file: " + file_to_convert)
 print()
+
+# Check if file is docx, then we need to convert it to pdf first
+if file_to_convert.endswith('.docx'):
+	print("Converting Word document to pdf first ...")
+	convert(file_to_convert)
+	base, _ = os.path.splitext(file_to_convert)
+	pdf_file = base + "." + "pdf"
+else:
+	pdf_file = file_to_convert
 
 # Prep presentation
 prs = Presentation()
 blank_slide_layout = prs.slide_layouts[6]
 
 # Create working folder
-base_name = pdf_file.split(".pdf")[0]
+base_name, _ = os.path.splitext(pdf_file)
 
 # Convert PDF to list of images
 print("Starting conversion...")
